@@ -19,7 +19,7 @@ const driverGetHandler = async (req, res) => {
   }
 };
 //-----------------------------------------------------//
-//handler de los ID
+//buscar de los ID
 const driverGetIdHandrer = async (req, res) => {
   const { idDriver } = req.params;
   const origin = isNaN(idDriver) ? "bdd" : "api";
@@ -74,6 +74,8 @@ const driverPostHandler = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+//-------------------------------//
+//Modificar
 const putDriversHandler = async (req, res) => {
   const {
     id,
