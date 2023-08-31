@@ -4,7 +4,7 @@ const axios = require("axios");
 const IMAGEN =
   "https://www.las2orillas.co/wp-content/uploads/2023/01/McLaren.jpeg";
 //-----------------------------------//
-//PARA FORMATEAR LO QUE ME LLEGA EN EL API
+//PARA MANDAR LA MISMA INFORMACION QUE TIENE EL BDD
 const cleanArray = (arr) => {
   const clean = arr.map((elem) => {
     return {
@@ -92,6 +92,8 @@ const getDriverId = async (idDriver, origin) => {
   // devuelvo el objecto del conductor
   return driver;
 };
+//-------------------------------------//
+//Para eliminar
 const deleteId = async (id) => {
   const driverId = await Driver.destroy({ where: { id } });
   if (!driverId) return { error: "driver inexistente!" };
@@ -126,6 +128,7 @@ const createDriver = async (
 
   return newDriver;
 };
+//Actualizar informacion
 const putDriver = async (
   id,
   firstName,
