@@ -4,7 +4,7 @@ const axios = require("axios");
 const IMAGEN =
   "https://www.las2orillas.co/wp-content/uploads/2023/01/McLaren.jpeg";
 //-----------------------------------//
-
+//PARA FORMATEAR LO QUE ME LLEGA EN EL API
 const cleanArray = (arr) => {
   const clean = arr.map((elem) => {
     return {
@@ -92,7 +92,15 @@ const getDriverId = async (idDriver, origin) => {
   // devuelvo el objecto del conductor
   return driver;
 };
-//creacion con post
+const deleteId = async (id) => {
+  const driverId = await Driver.destroy({ where: { id } });
+  if (!driverId) return { error: "driver inexistente!" };
+  else {
+    return { message: "Driver eliminado exitosamente" };
+  }
+};
+
+//CREACION DE LOS DRIVERS EN LA BASE DE DATOS
 const createDriver = async (
   firstName,
   lastName,
@@ -118,9 +126,41 @@ const createDriver = async (
 
   return newDriver;
 };
+const putDriver = async (
+  id,
+  firstName,
+  lastName,
+  description,
+  image,
+  nationality,
+  birthDate,
+  teamIds
+) => {
+  if (!image) {
+    image = IMAGEN;
+  }
+  const driversFind = await Driver.update(
+    {
+      firstName: firstName,
+      lastName: lastName,
+      description: description,
+      image: image,
+      nationality: nationality,
+      birthDate: birthDate,
+      teamIds: teamIds,
+    },
+    { where: { id } }
+  );
+  if (!driversFind) return { error: "usuario inexistente" };
+  else {
+    return driversFind;
+  }
+};
 module.exports = {
   getDriverId,
   createDriver,
   getDriver,
   searhName,
+  deleteId,
+  putDriver,
 };

@@ -3,7 +3,12 @@ const {
   createDriver,
   getDriverId,
   getDriver,
+  deleteId,
+  putDriver,
 } = require("../controller/driverController");
+
+//-------------------------------------------------//
+//el handle de todos los driver y los nombres
 const driverGetHandler = async (req, res) => {
   try {
     const { name } = req.query;
@@ -13,8 +18,8 @@ const driverGetHandler = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
-//id
+//-----------------------------------------------------//
+//handler de los ID
 const driverGetIdHandrer = async (req, res) => {
   const { idDriver } = req.params;
   const origin = isNaN(idDriver) ? "bdd" : "api";
@@ -26,7 +31,24 @@ const driverGetIdHandrer = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+//------------------------------------------//
+//Eliminar Driver en la base datos
+const idHandler = async (req, res) => {
+  const { idDriver } = req.params;
+  try {
+    const driverDelete = await deleteId(idDriver);
+    if (typeof driverDelete === "string") {
+      return res.status(400).json(driverDelete);
+    } else {
+      return res.status(200).json(driverDelete);
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
+//---------------------------------------------------//
+// PARA CREARLOS DRIVER
 const driverPostHandler = async (req, res) => {
   try {
     const {
@@ -52,9 +74,51 @@ const driverPostHandler = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+const putDriversHandler = async (req, res) => {
+  const {
+    id,
+    firstName,
+    lastName,
+    description,
+    image,
+    nationality,
+    birthDate,
+    teamIds,
+  } = req.body;
+  try {
+    if (
+      (id && firstName) ||
+      lastName ||
+      description ||
+      image ||
+      nationality ||
+      birthDate ||
+      teamIds
+    ) {
+      const newPutDriver = await putDriver(
+        id,
+        firstName,
+        lastName,
+        description,
+        image,
+        nationality,
+        birthDate,
+        teamIds
+      );
+      if (newPutDriver.error) return res.status(404).json(newPutDriver);
+      else {
+        return res.status(200).json(newPutDriver);
+      }
+    }
+  } catch (error) {
+    res.status(400).send("Mandame toda la info Rey");
+  }
+};
+
 module.exports = {
   driverGetHandler,
   driverGetIdHandrer,
-  // driverGetNameHandler,
   driverPostHandler,
+  idHandler,
+  putDriversHandler,
 };
