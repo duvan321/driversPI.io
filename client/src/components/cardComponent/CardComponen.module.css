@@ -1,0 +1,10 @@
+.CardComponent {
+  display: flex;
+  border: 1px solid black;
+  justify-content: center;
+  flex-direction: row;
+  border-radius: 15px;
+  flex-wrap: wrap;
+  gap: 5em;
+  text-align: center;
+}

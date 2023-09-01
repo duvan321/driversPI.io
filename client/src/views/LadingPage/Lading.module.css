@@ -1,0 +1,33 @@
+.ladiding {
+  min-height: 100vh;
+  text-align: center;
+  background-image: url("https://brandemia.org/sites/default/files/inline/images/f1-logo-red-on-black-e1511528736760.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  background-position: center;
+  background-attachment: fixed;
+}
+.h1 {
+  font-size: 5rem;
+  font-weight: bold;
+  color: blanchedalmond;
+}
+.h1:hover {
+  color: #c6c2c2;
+}
+.button {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-color: #000;
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  margin-top: 250px;
+}
+.button:hover {
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+}
