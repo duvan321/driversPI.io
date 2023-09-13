@@ -234,12 +234,3 @@ const Form = () => {
   );
 };
 export default Form;
-//  id: apiDriver.id,
-//     firstName: apiDriver.name.forename,
-//     lastName: apiDriver.name.surname,
-//     description: apiDriver.description,
-//     image: apiDriver.image.url,
-//     nationality: apiDriver.nationality,
-//     birthDate: apiDriver.dob,
-//     teams: apiDriver.teams,
-//     created: false,

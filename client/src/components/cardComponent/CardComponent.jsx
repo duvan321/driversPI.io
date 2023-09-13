@@ -37,28 +37,9 @@ const CardComponent = () => {
   };
   const filter = (e) => {
     dispatch(filTrarTeams(e.target.value));
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
-  // const [driverTeam, setDriverTeam] = useState([]);
-  // // const [selectedTeam, setSelectedTeam] = useState("");
 
-  // useEffect(() => {
-  //   // Realiza una solicitud HTTP para obtener la lista de equipos
-  //   axios
-  //     .get("http://localhost:3001/teams")
-  //     .then((response) => {
-  //       // Actualiza el estado con los datos obtenidos
-  //       setDriverTeam(response.data);
-  //     })
-  //     .catch((error) => {
-  //       // Maneja el error aquí
-  //       console.error("Error al obtener los datos:", error);
-  //     });
-  // }, []);
-
-  // const filter = (e) => {
-  //   setSelectedTeam(e.target.value);
-  // };
   useEffect(() => {
     dispatch(getTeamsAll());
   }, []);
