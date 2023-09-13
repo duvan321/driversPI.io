@@ -1,10 +1,48 @@
 .CardComponent {
-  display: flex;
-  border: 1px solid black;
-  justify-content: center;
-  flex-direction: row;
-  border-radius: 15px;
-  flex-wrap: wrap;
-  gap: 5em;
+  margin-top: 10px;
   text-align: center;
+}
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3em;
+  justify-content: center;
+}
+.titulo {
+  color: beige;
+}
+.titulo:hover {
+  color: rgb(136, 138, 138);
+}
+.select {
+  height: 40px;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+.select:hover {
+  background-color: rgb(136, 138, 138);
+}
+h1 {
+  margin: 0;
+}
+h5 {
+  color: antiquewhite;
+}
+.nameNoEnc {
+  color: beige;
+  height: 340px;
+  background-color: rgb(136, 138, 138);
+  width: 340px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+}
+.boton {
+  background-color: rgb(136, 138, 138);
+  margin-right: 20px;
+  font-size: 15px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
 }

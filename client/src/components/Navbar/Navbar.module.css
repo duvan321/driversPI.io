@@ -2,6 +2,48 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  border-radius: 15px;
-  border: 1px solid black;
+  padding: 25px;
+  background-color: rgb(136, 138, 138);
+  position: relative;
+}
+.button1 {
+  background-color: rgb(113, 113, 113);
+  border-radius: 7px;
+  font-size: 1rem;
+  left: 27rem;
+  position: absolute;
+  top: 14px;
+  border: none;
+}
+.button2 {
+  background-color: rgb(113, 113, 113);
+  border-radius: 7px;
+  font-size: 20px;
+  left: 50rem;
+  position: absolute;
+  top: 14px;
+  border: none;
+  width: 90px;
+}
+
+.imgButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 7px;
+  font-size: 1rem;
+  left: 1rem;
+  position: absolute;
+  top: 6px;
+  border: none;
+  border-radius: 50%;
+}
+.button1:hover,
+.button2:hover,
+.imgButton:hover {
+  font-size: 1.2rem;
+  border-radius: 14px; /* Un radio más grande para un efecto de iluminación más pronunciado */
+  transition: all 0.3s ease; /* Agregar una transición suave de 0.3 segundos */
+  box-shadow: 0 0 20px rgb(29, 29, 29); /* Agregar una sombra para enfatizar el efecto */
+  cursor: pointer;
+  font-family: cursive;
 }

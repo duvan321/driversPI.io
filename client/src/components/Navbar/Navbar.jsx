@@ -4,13 +4,17 @@ const Navbar = () => {
   return (
     <div className={stayle.mainNavbar}>
       <Link to="/home">
-        <button> Home</button>
+        <button className={stayle.button1}> Home</button>
       </Link>
       <Link to="/create">
-        <button>Form</button>
+        <button className={stayle.button2}>Form</button>
       </Link>
       <Link to="/">
-        <button>Salir</button>
+        <img
+          className={stayle.imgButton}
+          src="https://brandemia.org/sites/default/files/inline/images/f1-logo-red-on-black-e1511528736760.png"
+          alt=""
+        />
       </Link>
     </div>
   );
