@@ -110,7 +110,7 @@ const getDriverId = async (idDriver, origin) => {
       await axios.get(`http://localhost:5000/drivers/${idDriver}`)
     ).data;
     //mapeo las propiedades del objecto de la api al formato deseado
-    console.log("Datos de la API:", apiDriver);
+    // console.log("Datos de la API:", apiDriver);
     driver = {
       id: apiDriver.id,
       firstName: apiDriver.name.forename,
@@ -143,7 +143,7 @@ const getDriverId = async (idDriver, origin) => {
         },
       ],
     });
-    console.log("Datos de la base de datos:", driver);
+    // console.log("Datos de la base de datos:", driver);
   }
   // devuelvo el objecto del conductor
   return driver;
@@ -193,12 +193,6 @@ const createDriver = async (
 
   // Asocia los equipos al conductor
   await newDriver.addTeams(teamRecords);
-  // const arrayTeams = teams.split(", "); //[feliz, contento]
-
-  // for (const temName of arrayTeams) {
-  //   await newDriver.addTeams(temName);
-  //   console.log(temName);
-  // }
 
   return newDriver;
 };

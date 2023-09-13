@@ -16,7 +16,6 @@ const driverGetHandler = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     res.status(400).json({ error: error.message });
-    th;
   }
 };
 //-----------------------------------------------------//
@@ -128,38 +127,3 @@ module.exports = {
   idHandler,
   putDriversHandler,
 };
-// const createDriver = async (
-//   firstName,
-//   lastName,
-//   description,
-//   image,
-//   nationality,
-//   birthDate,
-//   teams
-// ) => {
-//   if (!image) {
-//     image = IMAGEN;
-//   }
-
-//   try {
-//     const newDriver = await Driver.create({
-//       firstName,
-//       lastName,
-//       description,
-//       image,
-//       nationality,
-//       birthDate,
-//     });
-//     await Promise.all(
-//       teams?.map(async function (teamIds) {
-//         if (!newDriver) return;
-//         if (newDriver) {
-//           await newDriver.addTeams(teamIds);
-//         }
-//       })
-//     );
-//   } catch (error) {
-//     console.log({ error: error.message });
-//   }
-//   return {};
-// };
