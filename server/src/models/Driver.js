@@ -30,9 +30,10 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       birthDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false,
       },
+
       created: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,

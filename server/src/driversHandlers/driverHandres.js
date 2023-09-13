@@ -16,6 +16,7 @@ const driverGetHandler = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     res.status(400).json({ error: error.message });
+    th;
   }
 };
 //-----------------------------------------------------//
@@ -58,7 +59,7 @@ const driverPostHandler = async (req, res) => {
       image,
       nationality,
       birthDate,
-      teamIds,
+      teams,
     } = req.body;
     const newDriver = await createDriver(
       firstName,
@@ -67,7 +68,7 @@ const driverPostHandler = async (req, res) => {
       image,
       nationality,
       birthDate,
-      teamIds
+      teams
     );
     res.status(201).json(newDriver);
   } catch (error) {
@@ -86,6 +87,7 @@ const putDriversHandler = async (req, res) => {
     nationality,
     birthDate,
     teamIds,
+    teams,
   } = req.body;
   try {
     if (
@@ -95,7 +97,8 @@ const putDriversHandler = async (req, res) => {
       image ||
       nationality ||
       birthDate ||
-      teamIds
+      teamIds ||
+      teams
     ) {
       const newPutDriver = await putDriver(
         id,
@@ -105,7 +108,8 @@ const putDriversHandler = async (req, res) => {
         image,
         nationality,
         birthDate,
-        teamIds
+        teamIds,
+        teams
       );
       if (newPutDriver.error) return res.status(404).json(newPutDriver);
       else {
@@ -124,3 +128,38 @@ module.exports = {
   idHandler,
   putDriversHandler,
 };
+// const createDriver = async (
+//   firstName,
+//   lastName,
+//   description,
+//   image,
+//   nationality,
+//   birthDate,
+//   teams
+// ) => {
+//   if (!image) {
+//     image = IMAGEN;
+//   }
+
+//   try {
+//     const newDriver = await Driver.create({
+//       firstName,
+//       lastName,
+//       description,
+//       image,
+//       nationality,
+//       birthDate,
+//     });
+//     await Promise.all(
+//       teams?.map(async function (teamIds) {
+//         if (!newDriver) return;
+//         if (newDriver) {
+//           await newDriver.addTeams(teamIds);
+//         }
+//       })
+//     );
+//   } catch (error) {
+//     console.log({ error: error.message });
+//   }
+//   return {};
+// };

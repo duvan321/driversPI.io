@@ -1,8 +1,8 @@
-const { Driver } = require("../db");
+const { Driver, Team } = require("../db");
 const { Op } = require("sequelize");
 const axios = require("axios");
 const IMAGEN =
-  "https://www.las2orillas.co/wp-content/uploads/2023/01/McLaren.jpeg";
+  "https://a1.espncdn.com/combiner/i?img=%2Fphoto%2F2022%2F0311%2Fr984952_1296x864_3%2D2.jpg";
 //-----------------------------------//
 //PARA MANDAR LA MISMA INFORMACION QUE TIENE EL BDD
 const cleanArray = (arr) => {
@@ -15,7 +15,7 @@ const cleanArray = (arr) => {
       image: elem.image.url,
       nationality: elem.nationality,
       birthDate: elem.dob,
-      teamIds: elem.teams,
+      team: elem.teams,
       created: false,
     };
   });
@@ -24,8 +24,42 @@ const cleanArray = (arr) => {
 //---------------------------------------------//
 //buscar todos los drivers
 const getDriver = async () => {
-  const dataDriver = await Driver.findAll();
+  // const dataDriver = await Driver.findAll();
+  const dataDriver = await Driver.findAll({
+    include: [
+      {
+        model: Team,
+        through: {
+          attributes: [],
+        },
+      },
+    ],
+  });
 
+  const DriverBD = dataDriver.map(
+    ({
+      id,
+      firstName,
+      lastName,
+      description,
+      image,
+      nationality,
+      birthDate,
+      Teams,
+    }) => {
+      const team = Teams.map((t) => t.name).join(", ");
+      return {
+        id,
+        firstName,
+        lastName,
+        description,
+        image,
+        nationality,
+        birthDate,
+        team,
+      };
+    }
+  );
   const apiDriverRaw = (await axios.get("http://localhost:5000/drivers")).data;
 
   const apiDriver = cleanArray(apiDriverRaw);
@@ -38,7 +72,7 @@ const getDriver = async () => {
     }
     return driver;
   });
-  return [...dataDriver, ...driversImagenDefault];
+  return [...DriverBD, ...driversImagenDefault];
 };
 //--------------------------------------------------//
 //buscar por nombre
@@ -55,8 +89,9 @@ const searhName = async (name) => {
     (driver) => driver.firstName.toLowerCase() === name.toLowerCase()
   );
   if (!driveName.length && !filterdApi.length) {
-    throw new Error(`No hay personajes con el nombre ${name}`);
+    return [];
   }
+
   if (driveName.length >= 15) {
     return driveName;
   }
@@ -75,6 +110,7 @@ const getDriverId = async (idDriver, origin) => {
       await axios.get(`http://localhost:5000/drivers/${idDriver}`)
     ).data;
     //mapeo las propiedades del objecto de la api al formato deseado
+    console.log("Datos de la API:", apiDriver);
     driver = {
       id: apiDriver.id,
       firstName: apiDriver.name.forename,
@@ -83,11 +119,31 @@ const getDriverId = async (idDriver, origin) => {
       image: apiDriver.image.url,
       nationality: apiDriver.nationality,
       birthDate: apiDriver.dob,
+      team: apiDriver.teams,
       created: false,
     };
+    // Verifica si la API proporciona una URL de imagen
+    if (apiDriver.image && apiDriver.image.url) {
+      // Utiliza la URL de la imagen de la API
+      driver.image = apiDriver.image.url;
+    } else {
+      // Utiliza la URL de la imagen por defecto
+      driver.image = IMAGEN;
+    }
   } else {
     //si no es el api obtiene el conductor directamente de la base datos
-    driver = await Driver.findByPk(idDriver);
+    // driver = await Driver.findByPk(idDriver);
+    driver = await Driver.findByPk(idDriver, {
+      include: [
+        {
+          model: Team,
+          through: {
+            attributes: [],
+          },
+        },
+      ],
+    });
+    console.log("Datos de la base de datos:", driver);
   }
   // devuelvo el objecto del conductor
   return driver;
@@ -110,21 +166,39 @@ const createDriver = async (
   image,
   nationality,
   birthDate,
-  teamIds
+  teams
 ) => {
   if (!image) {
     image = IMAGEN;
   }
-  const newDriver = await Driver.create({
-    firstName,
-    lastName,
-    description,
-    image,
-    nationality,
-    birthDate,
+
+  const [newDriver, create] = await Driver.findOrCreate({
+    where: {
+      firstName,
+      lastName,
+      description,
+      image,
+      nationality,
+      birthDate,
+    },
+  });
+  const teamNames = teams.split(", ");
+
+  // Encuentra los registros de equipos en la base de datos
+  const teamRecords = await Team.findAll({
+    where: {
+      name: teamNames,
+    },
   });
 
-  await newDriver.addTeam(teamIds);
+  // Asocia los equipos al conductor
+  await newDriver.addTeams(teamRecords);
+  // const arrayTeams = teams.split(", "); //[feliz, contento]
+
+  // for (const temName of arrayTeams) {
+  //   await newDriver.addTeams(temName);
+  //   console.log(temName);
+  // }
 
   return newDriver;
 };
@@ -137,7 +211,8 @@ const putDriver = async (
   image,
   nationality,
   birthDate,
-  teamIds
+  teamIds,
+  teams
 ) => {
   if (!image) {
     image = IMAGEN;
@@ -151,6 +226,7 @@ const putDriver = async (
       nationality: nationality,
       birthDate: birthDate,
       teamIds: teamIds,
+      teams: teams,
     },
     { where: { id } }
   );
