@@ -4,7 +4,7 @@ import { searchDrivers, getDrivers } from "../../redux/action";
 import { useState } from "react";
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
-
+  const name = useSelector((state) => state.copyDriver);
   const dispatch = useDispatch();
   const handleSearch = () => {
     // Despacha la acción de búsqueda con el término de búsqueda actual
@@ -18,6 +18,19 @@ const SearchBar = () => {
   };
   return (
     <div className={stayle.divSearvbar}>
+      <select
+        className={stayle.name}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      >
+        <option value="">Seleccionar un nombre</option>
+        {name?.map((te) => (
+          <option key={te.id} value={te.firstName}>
+            {te.firstName}
+          </option>
+        ))}
+      </select>
+
       <input
         className={stayle.input}
         type="text"

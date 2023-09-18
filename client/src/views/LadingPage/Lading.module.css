@@ -1,33 +1,55 @@
 .ladiding {
-  min-height: 100vh;
   text-align: center;
-  background-image: url("https://brandemia.org/sites/default/files/inline/images/f1-logo-red-on-black-e1511528736760.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  flex-direction: column;
-  background-position: center;
-  background-attachment: fixed;
+  position: relative;
+  margin-top: 30px;
 }
+#video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+}
+.content {
+  position: absolute; /* Cambiado a "absolute" para que esté encima del video */
+  top: 50%; /* Alinea verticalmente al centro */
+  left: 50%; /* Alinea horizontalmente al centro */
+  transform: translate(-50%, -50%); /* Centra el contenido */
+  /* Asegura que el contenido esté en el primer plano */
+}
+
 .h1 {
   font-size: 5rem;
   font-weight: bold;
-  color: blanchedalmond;
+  color: red;
 }
 .h1:hover {
-  color: #c6c2c2;
+  color: #ffffff;
+  background: red;
+  border: 1px solid red;
+  box-shadow: 0 0 5px red, 0 0 20px red, 0 0 50px red, 0 0 100px red;
+  border-radius: 50%;
+  opacity: calc(0.7);
 }
+
 .button {
-  font-size: 1.5rem;
-  font-weight: bold;
-  background-color: #000;
-  color: #fff;
-  padding: 1rem 2rem;
-  border-radius: 0.5rem;
-  margin-top: 250px;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  color: red;
+  text-shadow: none;
+  background: transparent;
+  box-shadow: transparent;
+  border: px solid #ffffff80;
+  transition: 0.5s ease;
+  user-select: none;
+  margin-top: 200px;
 }
 .button:hover {
-  background-color: #fff;
-  color: #000;
-  cursor: pointer;
+  color: #ffffff;
+  background: red;
+  border: 1px solid red;
+  text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+  box-shadow: 0 0 5px red, 0 0 20px red, 0 0 50px red, 0 0 100px red;
 }

@@ -19,6 +19,16 @@
   bottom: 26px;
   border: none;
 }
+.name {
+  position: absolute;
+  left: 73em;
+  bottom: 26px;
+  background-color: rgb(113, 113, 113);
+  font-size: 15px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
 .todo {
   position: absolute;
   background-color: rgb(113, 113, 113);
