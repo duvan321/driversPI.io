@@ -79,9 +79,40 @@ const getDriver = async () => {
 const searhName = async (name) => {
   const driveName = await Driver.findAll({
     where: { firstName: { [Op.iLike]: name } },
+    include: [
+      {
+        model: Team,
+        through: {
+          attributes: [],
+        },
+      },
+    ],
     limit: 15,
   });
-
+  const DriverBD = driveName.map(
+    ({
+      id,
+      firstName,
+      lastName,
+      description,
+      image,
+      nationality,
+      birthDate,
+      Teams,
+    }) => {
+      const team = Teams.map((t) => t.name).join(", ");
+      return {
+        id,
+        firstName,
+        lastName,
+        description,
+        image,
+        nationality,
+        birthDate,
+        team,
+      };
+    }
+  );
   const apiDriverRaw = (await axios.get("http://localhost:5000/drivers")).data;
 
   const apiDriver = cleanArray(apiDriverRaw);
@@ -98,19 +129,19 @@ const searhName = async (name) => {
   const completarQuince = 15 - driveName.length;
   const limites = filterdApi.slice(0, completarQuince);
 
-  return [...driveName, ...limites];
+  return [...DriverBD, ...limites];
 };
 
 //BUSCAR POR ID
 const getDriverId = async (idDriver, origin) => {
-  let driver; //variable para utilizar el objecto del conductor
-  //verifico si la origen del conductor es la api
+  let driver;
+
   if (origin === "api") {
+    // Obtener conductor desde la API y mapear los datos
     const apiDriver = (
       await axios.get(`http://localhost:5000/drivers/${idDriver}`)
     ).data;
-    //mapeo las propiedades del objecto de la api al formato deseado
-    // console.log("Datos de la API:", apiDriver);
+
     driver = {
       id: apiDriver.id,
       firstName: apiDriver.name.forename,
@@ -122,17 +153,14 @@ const getDriverId = async (idDriver, origin) => {
       team: apiDriver.teams,
       created: false,
     };
-    // Verifica si la API proporciona una URL de imagen
+
     if (apiDriver.image && apiDriver.image.url) {
-      // Utiliza la URL de la imagen de la API
       driver.image = apiDriver.image.url;
     } else {
-      // Utiliza la URL de la imagen por defecto
       driver.image = IMAGEN;
     }
   } else {
-    //si no es el api obtiene el conductor directamente de la base datos
-    // driver = await Driver.findByPk(idDriver);
+    // Obtener conductor desde la base de datos
     driver = await Driver.findByPk(idDriver, {
       include: [
         {
@@ -143,9 +171,24 @@ const getDriverId = async (idDriver, origin) => {
         },
       ],
     });
-    // console.log("Datos de la base de datos:", driver);
+
+    if (driver) {
+      // Mapear los datos del conductor y sus equipos
+      const team = driver.Teams.map((t) => t.name).join(", ");
+      driver = {
+        id: driver.id,
+        firstName: driver.firstName,
+        lastName: driver.lastName,
+        description: driver.description,
+        image: driver.image,
+        nationality: driver.nationality,
+        birthDate: driver.birthDate,
+        team: team,
+        created: false,
+      };
+    }
   }
-  // devuelvo el objecto del conductor
+
   return driver;
 };
 //-------------------------------------//
