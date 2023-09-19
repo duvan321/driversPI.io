@@ -5,7 +5,7 @@ import videoBackground from "./video/video.mp4"; // Reemplaza "tu_video.mp4" con
 const Lading = () => {
   return (
     <div className={stayle.ladiding}>
-      <video autoPlay muted loop id="video-background">
+      <video autoPlay loop id="video-background">
         <source src={videoBackground} type="video/mp4" />
       </video>
       <div className={stayle.content}>

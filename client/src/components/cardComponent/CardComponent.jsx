@@ -1,24 +1,20 @@
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
 import {
   ordenDriver,
   ordenDriverDod,
-  ordenDriverId,
+  // ordenDriverId,
   filTrarTeams,
   getAllApiBd,
   getTeamsAll,
 } from "../../redux/action";
 import { useState, useEffect } from "react";
 import Card from "../Card/card";
-// import Filters from "../Filter/Filter/";
 import stayle from "../cardComponent/CardComponen.module.css";
 import Page from "../pages/Pages";
 
 const CardComponent = () => {
   const cards = useSelector((state) => state.copyDriver);
   const teams = useSelector((state) => state.Teams);
-  // console.log("Datos obtenidos del estado local:", cards);
-
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [byPage, setByPage] = useState(9);
@@ -29,15 +25,14 @@ const CardComponent = () => {
   const handleOrdenBirday = (e) => {
     dispatch(ordenDriverDod(e.target.value));
   };
-  const handleOrdenId = (e) => {
-    dispatch(ordenDriverId(e.target.value));
-  };
+  // const handleOrdenId = (e) => {
+  //   dispatch(ordenDriverId(e.target.value));
+  // };
   const handleButon = (apiAllBd) => {
     dispatch(getAllApiBd(apiAllBd));
   };
   const filter = (e) => {
     dispatch(filTrarTeams(e.target.value));
-    // console.log(e.target.value);
   };
 
   useEffect(() => {
@@ -72,11 +67,11 @@ const CardComponent = () => {
         <option value="A">AscenDod</option>
         <option value="D">DecenDob</option>
       </select>
-      <h1 className={stayle.titulo}>Ordenar por ID:</h1>
+      {/* <h1 className={stayle.titulo}>Ordenar por ID:</h1>
       <select className={stayle.select} onChange={handleOrdenId}>
         <option value="A">Asendente</option>
         <option value="D">Decendente</option>
-      </select>
+      </select> */}
 
       <div className={stayle.cards}>
         {cards

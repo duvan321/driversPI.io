@@ -1,26 +1,43 @@
+@keyframes fadeIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 .ladiding {
   text-align: center;
   position: relative;
   margin-top: 30px;
+  transition: 0.5s;
+  font-family: "Merianda";
 }
+
 #video-background {
   position: absolute;
   top: 0;
   left: 0;
   object-fit: cover;
 }
+
 .content {
-  position: absolute; /* Cambiado a "absolute" para que esté encima del video */
-  top: 50%; /* Alinea verticalmente al centro */
-  left: 50%; /* Alinea horizontalmente al centro */
-  transform: translate(-50%, -50%); /* Centra el contenido */
-  /* Asegura que el contenido esté en el primer plano */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .h1 {
   font-size: 5rem;
   font-weight: bold;
   color: red;
+  animation-name: fadeIn; /* Nombre de la animación */
+  animation-duration: 1.5s; /* Duración de la animación */
+  opacity: calc(0.3);
 }
 .h1:hover {
   color: #ffffff;
@@ -28,7 +45,7 @@
   border: 1px solid red;
   box-shadow: 0 0 5px red, 0 0 20px red, 0 0 50px red, 0 0 100px red;
   border-radius: 50%;
-  opacity: calc(0.7);
+  opacity: calc(0.3);
 }
 
 .button {

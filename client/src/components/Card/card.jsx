@@ -8,7 +8,6 @@ const Card = (props) => {
           <img src={props.image} alt={props.firstName} />
         </Link>
       </div>
-      <h1>{props.id}</h1>
       <h1>{props.firstName}</h1>
       <h4>{props.team}</h4>
       <h5>{props.birthDate}</h5>

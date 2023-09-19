@@ -1,5 +1,5 @@
 .CardComponent {
-  margin-top: 10px;
+  margin-top: 50px;
   text-align: center;
 }
 .cards {
@@ -9,10 +9,10 @@
   justify-content: center;
 }
 .titulo {
-  color: beige;
+  color: rgb(28, 30, 47);
 }
 .titulo:hover {
-  color: rgb(136, 138, 138);
+  color: rgb(45, 48, 67);
 }
 .select {
   height: 40px;
@@ -39,10 +39,12 @@ h5 {
   border-radius: 50%;
 }
 .boton {
-  background-color: rgb(136, 138, 138);
+  background-color: rgb(28, 30, 47);
+  color: white;
   margin-right: 20px;
   font-size: 15px;
   border: none;
   border-radius: 20px;
   cursor: pointer;
+  width: 300px;
 }
