@@ -128,8 +128,16 @@ const searhName = async (name) => {
   }
   const completarQuince = 15 - driveName.length;
   const limites = filterdApi.slice(0, completarQuince);
-
-  return [...DriverBD, ...limites];
+  const driversImagenDefault = limites.map((driver) => {
+    if (!driver.image) {
+      return {
+        ...driver,
+        image: IMAGEN,
+      };
+    }
+    return driver;
+  });
+  return [...DriverBD, ...driversImagenDefault];
 };
 
 //BUSCAR POR ID
